@@ -1,0 +1,1448 @@
+<!doctype html>
+<html lang="ru" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRANDMIX — СПОРТТУК КИЙИМДЕР ДҮКӨНҮ</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="/_sdk/data_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.263.0/dist/umd/lucide.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=Archivo+Black&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --c-bg: #faf9f7;
+    --c-olive: #5a7c3e;
+    --c-olive-dark: #42571e;
+    --c-red: #d84545; 
+    --c-red-dark: #b33a3a;
+    --c-ink: #2a2a2a;
+    --c-cream: #f0ede6;
+  }
+  html, body { height: 100%; width: 100%; margin: 0; }
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--c-bg);
+    color: var(--c-ink);
+  }
+  .font-display { font-family: 'Archivo Black', sans-serif; letter-spacing: -0.02em; }
+  .font-bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.04em; }
+
+  .ticker {
+    display: flex;
+    animation: ticker 30s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .hero-grid {
+    background-image:
+      linear-gradient(var(--c-ink) 1px, transparent 1px),
+      linear-gradient(90deg, var(--c-ink) 1px, transparent 1px);
+    background-size: 60px 60px;
+    background-position: -1px -1px;
+    opacity: 0.06;
+  }
+
+  .brutal-shadow { box-shadow: 0 8px 24px rgba(0,0,0,0.08); border-radius: 12px; }
+  .brutal-shadow-red { box-shadow: 0 8px 24px rgba(216,69,69,0.15); border-radius: 12px; }
+  .brutal-shadow-olive { box-shadow: 0 8px 24px rgba(90,124,62,0.15); border-radius: 12px; }
+
+  .brutal-btn {
+    transition: all 0.2s ease;
+    border-radius: 8px;
+  }
+  .brutal-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  }
+  .brutal-btn:active {
+    transform: translateY(-1px);
+  }
+
+  .product-card {
+    transition: all 0.3s ease;
+    border-radius: 12px;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.12);
+  }
+
+  .nav-dropdown {
+    display: none;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: all 0.2s ease;
+    border-radius: 0 0 12px 12px;
+  }
+  .nav-item.active .nav-dropdown {
+    display: grid;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .nav-item.active .nav-arrow { transform: rotate(180deg); }
+  .nav-arrow { transition: transform 0.2s ease; }
+
+  .slide-in { animation: slideIn 0.3s ease forwards; }
+  @keyframes slideIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .marquee-stripe {
+    background: linear-gradient(135deg, var(--c-red) 0%, #c74040 100%);
+    color: var(--c-cream);
+    overflow: hidden;
+    border-top: 2px solid rgba(0,0,0,0.1);
+    border-bottom: 2px solid rgba(0,0,0,0.1);
+  }
+
+  .badge-new {
+    background: linear-gradient(135deg, var(--c-red) 0%, #c74040 100%);
+    color: white;
+    transform: rotate(-3deg);
+    border-radius: 6px;
+  }
+
+  .chip {
+    border: 2px solid var(--c-ink);
+    transition: all 0.15s ease;
+    border-radius: 8px;
+  }
+  .chip.active {
+    background: var(--c-ink);
+    color: var(--c-cream);
+  }
+
+  .cart-slide {
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+  }
+  .cart-slide.open { transform: translateX(0); }
+
+  .search-slide {
+    transform: translateY(-100%);
+    transition: transform 0.3s ease;
+    opacity: 0;
+  }
+  .search-slide.open { transform: translateY(0); opacity: 1; }
+
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: var(--c-cream); }
+  ::-webkit-scrollbar-thumb { background: var(--c-ink); border: 2px solid var(--c-cream); border-radius: 6px; }
+
+  .rotating-text {
+    animation: spin-slow 20s linear infinite;
+  }
+  @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  .gallery-img {
+    transition: transform 0.4s ease, filter 0.4s ease;
+    border-radius: 8px;
+  }
+  .gallery-img:hover {
+    transform: scale(1.05);
+    filter: saturate(1.2) contrast(1.05);
+  }
+
+  .toast {
+    animation: toastIn 0.3s ease forwards;
+  }
+  @keyframes toastIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .size-btn.active {
+    background: var(--c-ink);
+    color: var(--c-cream);
+  }
+
+  input:focus, select:focus { outline: none; }
+
+  .divider-zigzag {
+    height: 16px;
+    background: linear-gradient(-45deg, transparent 33%, rgba(0,0,0,0.05) 33%, rgba(0,0,0,0.05) 66%, transparent 66%) 0 0 / 20px 20px,
+                linear-gradient(45deg, transparent 33%, rgba(0,0,0,0.05) 33%, rgba(0,0,0,0.05) 66%, transparent 66%) 0 0 / 20px 20px;
+  }
+
+  .stat-box {
+    background: linear-gradient(135deg, rgba(90,124,62,0.05) 0%, rgba(216,69,69,0.05) 100%);
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  .stat-box:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    transform: translateY(-2px);
+  }
+
+
+  .map-frame {
+    width: 100%;
+    min-height: 360px;
+    border: 0;
+    display: block;
+    filter: saturate(0.95) contrast(1.02);
+  }
+  .payment-qr-img {
+    width: 118px;
+    height: 118px;
+    object-fit: contain;
+    background: white;
+    padding: 8px;
+    border-radius: 12px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+</style>
+  <style>body { box-sizing: border-box; }</style>
+ </head>
+ <body class="h-full w-full overflow-auto">
+  <!-- TICKER STRIP -->
+  <div class="marquee-stripe py-2.5">
+   <div class="ticker font-bebas text-sm md:text-base">
+    <span class="px-6">★ ШААР ИЧИ 250 СОМДОН БАШТАП</span> <span class="px-6">★ ЖАҢЫ КОЛЛЕКЦИЯ FW26</span> <span class="px-6">★ ЭСКИ КОЛЛЕКЦИЯГА 40% АРЗАНДАТУУ</span> <span class="px-6">★ КЕПИЛДИК 60 КҮН</span> <span class="px-6">★ ШААР ИЧИ 250 СОМДОН БАШТАП</span> <span class="px-6">★ ЖАҢЫ КОЛЛЕКЦИЯ FW26</span> <span class="px-6">★ ЭСКИ КОЛЛЕКЦИЯГА 40% АРЗАНДАТУУ</span>
+   </div>
+  </div><!-- HEADER + NAV -->
+  <header class="bg-[var(--c-bg)] border-b-[1px] border-black/10 sticky top-0 z-40">
+   <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-4 flex items-center justify-between gap-4">
+    <!-- LOGO --> <a href="#" class="flex items-center gap-2 shrink-0">
+     <div class="w-11 h-11 bg-[var(--c-red)] text-white flex items-center justify-center font-display text-lg border-none rounded-lg" style="transform:rotate(-2deg)">
+      B
+     </div>
+     <div>
+      <div id="storeName" class="font-display text-xl md:text-2xl leading-none text-[var(--c-ink)]">
+       BRANDMIX
+      </div>
+      <div id="storeTagline" class="font-bebas text-xs text-[var(--c-olive)] leading-none mt-0.5">
+       СПОРТТУК КИЙИМДЕР МАГАЗИНИ
+      </div>
+     </div></a> <!-- SEARCH (desktop) -->
+    <div class="hidden lg:flex flex-1 max-w-md relative">
+     <input id="desktopSearch" type="text" placeholder="Поиск товаров..." class="w-full bg-white border-1 border-black/10 rounded-lg px-4 py-2.5 pr-10 font-medium placeholder:text-[var(--c-ink)]/40 focus:bg-white focus:ring-2 focus:ring-[var(--c-red)]/20 transition-all"> <button aria-label="Search" class="absolute right-0 top-0 h-full px-3 text-[var(--c-red)]"> <i data-lucide="search" class="w-5 h-5"></i> </button>
+    </div><!-- ACTIONS -->
+    <div class="flex items-center gap-2">
+     <button id="searchToggle" aria-label="Поиск" class="lg:hidden w-11 h-11 bg-white border-1 border-black/10 flex items-center justify-center rounded-lg text-[var(--c-ink)]"> <i data-lucide="search" class="w-5 h-5"></i> </button> <button id="cartBtn" aria-label="Корзина" class="relative w-11 h-11 bg-[var(--c-red)] border-none flex items-center justify-center text-white rounded-lg transition-all hover:shadow-lg"> <i data-lucide="shopping-bag" class="w-5 h-5"></i> <span id="cartBadge" class="absolute -top-2 -right-2 min-w-[22px] h-[22px] px-1 bg-[var(--c-ink)] text-white text-xs font-bold flex items-center justify-center rounded-full border-2 border-white hidden">0</span> </button>
+    </div>
+   </div><!-- MOBILE SEARCH SLIDEDOWN -->
+   <div id="mobileSearchBar" class="search-slide lg:hidden overflow-hidden border-t-1 border-black/10">
+    <div class="p-4 bg-white">
+     <div class="relative">
+      <input id="mobileSearch" type="text" placeholder="Что вы ищете?" class="w-full bg-[var(--c-cream)] border-1 border-black/10 rounded-lg px-4 py-3 pr-12 font-medium"> <button class="absolute right-2 top-1/2 -translate-y-1/2 text-[var(--c-red)]"> <i data-lucide="search" class="w-5 h-5"></i> </button>
+     </div>
+    </div>
+   </div><!-- HORIZONTAL NAV -->
+   <nav class="bg-[var(--c-ink)] text-[var(--c-cream)] border-t-1 border-black/10">
+    <div class="max-w-[1400px] mx-auto overflow-x-auto">
+     <ul id="navList" class="flex items-stretch min-w-max">
+      <!-- items inserted by JS -->
+     </ul>
+    </div><!-- DROPDOWN CONTENT CONTAINER -->
+    <div id="dropdownContainer" class="hidden bg-white border-t-1 border-black/10">
+     <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-6" id="dropdownContent"></div>
+    </div>
+   </nav>
+  </header><!-- HERO BANNER -->
+<section class="relative overflow-hidden border-b border-black/10">
+
+  <!-- Фон (картинка + затемнение) -->
+  <div class="absolute inset-0">
+    <img src="fon1.jpg" 
+         alt="Banner"
+         class="w-full h-full object-cover">
+    <div class="absolute inset-0 bg-black/50"></div>
+  </div>
+
+  <!-- Декор -->
+  <div class="absolute inset-0 hero-grid"></div>
+  <div class="absolute -top-16 -right-16 w-96 h-96 bg-[var(--c-red)] rounded-full opacity-20 blur-3xl"></div>
+
+  <!-- Контент -->
+  <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-16 md:py-28 relative">
+    <div class="max-w-3xl">
+
+      <div class="inline-block bg-[var(--c-red)] text-white font-bebas text-xs px-4 py-2 rounded-lg mb-6 shadow-lg">
+        ЖАҢЫ КОЛЛЕКЦИЯ / FW 2026
+      </div>
+
+      <h1 id="bannerTitle" class="font-display text-[var(--c-cream)] text-5xl md:text-7xl lg:text-8xl leading-[0.9] mb-6">
+        ДВИГАЙСЯ <br>
+        <span class="text-[var(--c-red)]">ЖЁСТКО.</span>
+      </h1>
+
+      <p id="bannerSubtitle" class="text-[var(--c-cream)]/90 text-base md:text-lg mb-8 max-w-xl font-medium leading-relaxed">
+        Спортивная одежда для тех, кто живёт интенсивно. 
+        От зала до улиц Бишкека — всё в одной коллекции.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <button id="shopNowBtn" 
+          class="brutal-btn bg-[var(--c-red)] text-white font-display text-base md:text-lg px-7 py-3 md:py-4 shadow-lg">
+          КАТАЛОГ КӨРҮҮ →
+        </button>
+
+        <button id="aboutBtn" 
+          class="brutal-btn bg-white text-[var(--c-ink)] font-display text-base md:text-lg px-7 py-3 md:py-4 shadow-lg">
+          БРЕНД ЖӨНҮНДӨ
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+</section><!-- QUICK STATS -->
+  <section class="max-w-[1400px] mx-auto px-4 md:px-8 py-12 grid grid-cols-3 gap-4">
+   <div class="stat-box p-4 md:p-6 text-center">
+    <div class="font-display text-3xl md:text-4xl text-[var(--c-red)]">
+     150+
+    </div>
+    <div class="font-bebas text-xs md:text-sm text-[var(--c-ink)]/60 mt-2">
+     МОДЕЛДЕРДИН САНЫ
+    </div>
+   </div>
+   <div class="stat-box p-4 md:p-6 text-center">
+    <div class="font-display text-3xl md:text-4xl text-[var(--c-red)]">
+     5000+
+    </div>
+    <div class="font-bebas text-xs md:text-sm text-[var(--c-ink)]/60 mt-2">
+     ЫРААЗЫ БОЛГОН КАРДАРЛАР
+    </div>
+   </div>
+   <div class="stat-box p-4 md:p-6 text-center">
+    <div class="font-display text-3xl md:text-4xl text-[var(--c-red)]">
+     24/7
+    </div>
+    <div class="font-bebas text-xs md:text-sm text-[var(--c-ink)]/60 mt-2">
+     КОЛДОО КЫЗМАТЫ
+    </div>
+   </div>
+  </section><!-- CATEGORY QUICK TILES -->
+  <section class="max-w-[1400px] mx-auto px-4 md:px-8 py-12">
+   <div class="flex items-end justify-between mb-8 flex-wrap gap-2">
+    <h2 class="font-display text-3xl md:text-4xl">КАТЕГОРИЯЛАР</h2>
+    <div class="font-bebas text-xs md:text-sm text-[var(--c-olive)]">
+     ӨЗ ЖОЛУҢДУ ТАНДА
+    </div>
+   </div>
+   <div class="grid grid-cols-2 md:grid-cols-4 gap-4"><button data-cat="women" class="cat-tile group relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all"> <img src="photo_2026-04-29_14-29-47.jpg" alt="Женская одежда" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.background='#5a7c3e';">
+     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+     <div class="absolute bottom-0 left-0 right-0 p-4 text-left text-white">
+      <div class="font-display text-lg md:text-xl">
+       АЯЛДАР ҮЧҮН
+      </div>
+      <div class="font-bebas text-[var(--c-red)] text-xs">
+       42 товар →
+      </div>
+     </div></button> <button data-cat="men" class="cat-tile group relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all"> <img src="photo_2026-04-29_14-29-50.jpg" alt="Мужская одежда" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.background='#5a7c3e';">
+     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+     <div class="absolute bottom-0 left-0 right-0 p-4 text-left text-white">
+      <div class="font-display text-lg md:text-xl">
+       ЭРКЕКТЕР ҮЧҮН
+      </div>
+      <div class="font-bebas text-[var(--c-red)] text-xs">
+       48 товар →
+      </div>
+     </div></button> <button data-cat="access" class="cat-tile group relative aspect-[3/4] rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-all"> <img src="photo_2026-04-29_14-29-55.jpg" alt="Детская одежда" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.background='#d84545';">
+     <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+     <div class="absolute bottom-0 left-0 right-0 p-4 text-left text-white">
+      <div class="font-display text-lg md:text-xl">
+        АКСЕССУАРЛАР
+      </div>
+      <div class="font-bebas text-[var(--c-red)] text-xs">
+       32 товар →
+      </div>
+     </div></button>
+   </div>
+  </section>
+  <div class="divider-zigzag"></div><!-- CATALOG -->
+  <section id="catalog" class="max-w-[1400px] mx-auto px-4 md:px-8 py-12">
+   <div class="flex items-end justify-between mb-8 flex-wrap gap-4">
+    <div>
+     <div class="font-bebas text-[var(--c-red)] text-xs md:text-sm mb-2">
+      КАТАЛОГ / БАРДЫК ТОВАРЛАР
+     </div>
+     <h2 id="catalogTitle" class="font-display text-3xl md:text-5xl">ВСЕ ТОВАРЫ</h2>
+    </div>
+    <div class="flex items-center gap-2">
+     <span class="font-bebas text-xs md:text-sm">КӨРСӨТҮЛДҮ:</span> <span id="resultCount" class="font-display text-lg">0</span>
+    </div>
+   </div><!-- FILTER BAR -->
+   <div class="bg-white rounded-xl p-4 md:p-6 mb-8 shadow-md border-1 border-black/5">
+    <!-- Category tabs -->
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+     <span class="font-bebas text-xs md:text-sm mr-1">КАТЕГОРИЯ:</span> <button data-filter-cat="all" class="cat-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm active">БААРЫ</button> <button data-filter-cat="women" class="cat-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">АЯЛДАР ҮЧҮН</button> <button data-filter-cat="men" class="cat-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">ЭРКЕКТЕР ҮЧҮН</button><button data-filter-cat="access" class="cat-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">АКСЕССУАРЛАР</button>
+    </div><!-- Subcategory -->
+    <div class="flex flex-wrap items-center gap-2 mb-4">
+     <span class="font-bebas text-xs md:text-sm mr-1">ТИП:</span> <button data-filter-type="all" class="type-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm active">БАРДЫК ТИПТЕР</button> <button data-filter-type="tshirt" class="type-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">ФУТБОЛКАЛАР</button> <button data-filter-type="track" class="type-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">СПОРТИВКАЛЫК КОСТЮМДАР</button> <button data-filter-type="set" class="type-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">ДВОЙКАЛАР</button> <button data-filter-type="pants" class="type-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">ШЫМДАР</button> <button data-filter-type="hoodie" class="type-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">КАПЮШОН</button> <button data-filter-type="sweat" class="type-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">ЖЕМПИРЛЕР</button> <button data-filter-type="access" class="type-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">АКСЕССУАРЛАР</button>
+    </div><!-- Size + stock + sort -->
+    <div class="flex flex-wrap items-center gap-2">
+     <span class="font-bebas text-xs md:text-sm mr-1">КӨЛӨМ:</span> <button data-filter-size="all" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm active">БААРЫ</button> <button data-filter-size="XS" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">XS</button> <button data-filter-size="S" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">S</button> <button data-filter-size="M" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">M</button> <button data-filter-size="L" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">L</button> <button data-filter-size="XL" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">XL</button> <button data-filter-size="XXL" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">XXL</button> <button data-filter-size="KIDS" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">ДЕТ.</button> <button data-filter-size="OS" class="size-chip chip px-3 py-1.5 font-bebas text-xs md:text-sm">ONE SIZE</button>
+     <div class="ml-auto flex items-center gap-2 flex-wrap">
+      <label class="flex items-center gap-2 font-bebas text-xs md:text-sm cursor-pointer"> <input id="stockFilter" type="checkbox" class="w-4 h-4 accent-[var(--c-red)] rounded"> ДҮКӨНДӨ БАРЛАР </label> <select id="sortSelect" class="bg-white border-1 border-black/10 rounded-lg px-3 py-1.5 font-bebas text-xs md:text-sm"> <option value="default">СОРТТОО</option> <option value="price-asc">БААСЫ ↑</option> <option value="price-desc">БААСЫ ↓</option> <option value="name">АТАЛЫШЫ</option> </select>
+     </div>
+    </div>
+   </div><!-- PRODUCTS GRID -->
+   <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5"></div>
+   <div id="emptyState" class="hidden py-20 text-center">
+    <div class="font-display text-3xl md:text-4xl mb-3">
+     ЭЧ НЕРСЕ ТАБЫЛБАДЫ
+    </div>
+    <div class="text-[var(--c-ink)]/60 mb-6 text-sm md:text-base">
+     Издөө шарттарын өзгөртүңүз же баарын өчүрүңүз
+    </div><button id="resetFilters" class="brutal-btn bg-[var(--c-red)] text-white font-display px-6 py-3 shadow-lg">СБРОСИТЬ ФИЛЬТРЫ</button>
+   </div>
+  </section>
+  <div class="divider-zigzag"></div><!-- BLOG / NEWS -->
+  <section class="max-w-[1400px] mx-auto px-4 md:px-8 py-16">
+   <div class="mb-10">
+    <div class="font-bebas text-[var(--c-red)] text-xs md:text-sm mb-2">
+     МААЛЫМАТ БУРЧУ: КЕҢЕШТЕР ЖАНА КАБАРЛАР
+    </div>
+    <h2 id="blogTitle" class="font-display text-3xl md:text-5xl leading-[0.9]">СТИЛЬ И СПОРТ</h2>
+   </div>
+   <div class="grid md:grid-cols-3 gap-6">
+    <article class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+     <div class="aspect-video overflow-hidden bg-[var(--c-cream)]"><img src="photo_2026-04-29_14-36-47.jpg" alt="Блог" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.background='#5a7c3e';">
+     </div>
+     <div class="p-5 md:p-6">
+      <div class="font-bebas text-xs text-[var(--c-red)] mb-2">
+       МАШЫГУУ / 15 ЯНВ
+      </div>
+      <h3 class="font-display text-lg md:text-xl leading-tight mb-3">Спорттук кийимди кантип тандоо керек?</h3>
+      <p class="text-sm text-[var(--c-ink)]/70 mb-4">Спорттук кийим тандоодо эң биринчи кезекте анын материалына көңүл буруу зарыл: ал денеге аба өткөрүп, терди тез кургатышы керек. Кийим кыймыл-аракетке тоскоол болбошу үчүн өтө тар же өтө кенен болбогону оң. Ошондой эле, машыгуунун түрүнө жараша тиешелүү бут кийимди туура тандоо муундарды жаракаттан сактайт. Сапаттуу кийим машыгуунун натыйжалуулугун арттырып, өзүңүздү ишенимдүү сезүүгө жардам берет.</p><button class="font-bebas text-sm text-[var(--c-red)] hover:text-[var(--c-olive)] transition-colors">ОКУУ →</button>
+     </div>
+    </article>
+    <article class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+     <div class="aspect-video overflow-hidden bg-[var(--c-cream)]"><img src="стиль.jpg" alt="Блог" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.background='#d84545';">
+     </div>
+     <div class="p-5 md:p-6">
+      <div class="font-bebas text-xs text-[var(--c-red)] mb-2">
+       СТИЛЬ / 10 ЯНВ
+      </div>
+      <h3 class="font-display text-lg md:text-xl leading-tight mb-3">Стиль — бул сиздин ички дүйнөңүздүн күзгүсү</h3>
+      <p class="text-sm text-[var(--c-ink)]/70 mb-4">Стиль — бул жөн гана мода эмес, бул сиздин ички дүйнөңүздү жана мүнөзүңүздү сөзсүз чагылдырган өзгөчө тил. Өз стилиңизди табуу үчүн тренддерди сокур ээрчибей, өзүңүзгө эмне ыңгайлуу жана жарашыктуу экенин сезүү маанилүү. Туура тандалган кийим адамга өзгөчө ишенимдүүлүк берип, айланадагыларга сиздин табитиңиз тууралуу маалымат берет. Эң башкысы, стиль деталдардан куралат, ошондуктан аксессуарларды жана түстөрдү бири-бирине шайкеш келтирүүгө көңүл буруңуз.</p><button class="font-bebas text-sm text-[var(--c-red)] hover:text-[var(--c-olive)] transition-colors">ОКУУ →</button>
+     </div>
+    </article>
+    <article class="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all">
+     <div class="aspect-video overflow-hidden bg-[var(--c-cream)]"><img src="photo_2026-04-29_14-38-35.jpg" alt="Блог" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" onerror="this.style.background='#2a2a2a';">
+     </div>
+     <div class="p-5 md:p-6">
+      <div class="font-bebas text-xs text-[var(--c-red)] mb-2">
+       ЖАҢЫЛЫКТАР / 5 ЯНВ
+      </div>
+      <h3 class="font-display text-lg md:text-xl leading-tight mb-3">Коллекция Anta сатылууда</h3>
+      <p class="text-sm text-[var(--c-ink)]/70 mb-4">«ANTA» брендинин жаңы коллекциясы сатыкка чыкты — бул жогорку технология менен заманбап стилдин айкалышы. Кийимдер жана бут кийимдер машыгуу учурунда максималдуу ыңгайлуулукту камсыз кылып, дененин эркин кыймылдашына шарт түзөт. Ар бир модель сапаттуу материалдардан жасалып, узак убакытка кызмат кылууга жана стилдүү көрүнүүгө кепилдик берет. Өзүңүздүн спорттук жетишкендиктериңиз үчүн ишенимдүү жана модалуу кийимдерди тандаңыз.</p><button class="font-bebas text-sm text-[var(--c-red)] hover:text-[var(--c-olive)] transition-colors">ОКУУ →</button>
+     </div>
+    </article>
+   </div>
+  </section>
+  <div class="divider-zigzag"></div><!-- REVIEWS -->
+  <section class="max-w-[1400px] mx-auto px-4 md:px-8 py-16">
+   <div class="mb-10">
+    <div class="font-bebas text-[var(--c-red)] text-xs md:text-sm mb-2">
+     КАРДАРЛАРДЫН ПИКИРИ
+    </div>
+    <h2 id="reviewsTitle" class="font-display text-3xl md:text-5xl leading-[0.9]">ЧТО ГОВОРЯТ О НАС</h2>
+   </div>
+   <div class="grid md:grid-cols-3 gap-6">
+    <div class="bg-white rounded-xl p-5 md:p-6 shadow-md hover:shadow-lg transition-all">
+     <div class="flex gap-0.5 mb-4"><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span>
+     </div>
+     <p class="text-sm text-[var(--c-ink)]/80 mb-4 leading-relaxed">"Сапаты жөн эле укмуш! Жарым жылдан бери кийип жүрөм, канча жууса да бузулган жок. Баасы сапатына татыктуу, жеткирүүсү да тез экен."</p>
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-[var(--c-red)] rounded-lg flex items-center justify-center text-white font-display text-sm">
+       А
+      </div>
+      <div>
+       <div class="font-bebas text-sm">
+        Аскар
+       </div>
+       <div class="text-xs text-[var(--c-ink)]/50">
+        Манас
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="bg-white rounded-xl p-5 md:p-6 shadow-md hover:shadow-lg transition-all">
+     <div class="flex gap-0.5 mb-4"><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span>
+     </div>
+     <p class="text-sm text-[var(--c-ink)]/80 mb-4 leading-relaxed">"Акыры чынчыл дүкөн таптым! Майда деталдарга чейин көңүл бурулганы көрүнүп турат. Тейлөөсү жана кардарларга болгон сый-урматы абдан жакты."</p>
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-[var(--c-olive)] rounded-lg flex items-center justify-center text-white font-display text-sm">
+       А
+      </div>
+      <div>
+       <div class="font-bebas text-sm">
+        Жанара
+       </div>
+       <div class="text-xs text-[var(--c-ink)]/50">
+        Манас
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="bg-white rounded-xl p-5 md:p-6 shadow-md hover:shadow-lg transition-all">
+     <div class="flex gap-0.5 mb-4"><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span><span class="text-[var(--c-red)]">★</span>
+     </div>
+     <p class="text-sm text-[var(--c-ink)]/80 mb-4 leading-relaxed">"ERKE спорттук шымдары — супер! Ыңгайлуулук жана стиль айкалышкан. Ал эми худи менин эң сүйүктүү кийимиме айланды. Баарыңарга сунуштайм!"</p>
+     <div class="flex items-center gap-3">
+      <div class="w-10 h-10 bg-[var(--c-red)] rounded-lg flex items-center justify-center text-white font-display text-sm">
+       М
+      </div>
+      <div>
+       <div class="font-bebas text-sm">
+        Улукман
+       </div>
+       <div class="text-xs text-[var(--c-ink)]/50">
+        Манас
+       </div>
+      </div>
+     </div>
+    </div>
+   </div>
+  </section>
+  <div class="divider-zigzag"></div><!-- ABOUT BRAND -->
+  <section class="max-w-[1400px] mx-auto px-4 md:px-8 py-16">
+   <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
+    <div>
+     <div class="font-bebas text-[var(--c-red)] text-xs md:text-sm mb-3">
+      БРЕНД ЖӨНҮНДӨ / SINCE 2019
+     </div>
+     <h2 id="aboutTitle" class="font-display text-4xl md:text-5xl leading-[0.9] mb-6">МЫ НЕ ПРОСТО<br><span class="text-[var(--c-red)]">ОДЕЖДА.</span><br>
+      МЫ МЫШЛЕНИЕ.</h2>
+     <p id="aboutText" class="text-base md:text-lg leading-relaxed mb-6 text-[var(--c-ink)]/80">BRANDMIX — кыргызстанский бренд спортивной одежды из Бишкека. Мы делаем вещи, которые выдерживают ежедневные тренировки, долгие пробежки и ритм городской жизни. Философия — качество без компромиссов и дизайн, который говорит.</p>
+     <div class="grid grid-cols-2 gap-3 mb-6">
+      <div class="bg-[var(--c-cream)] rounded-lg p-4 shadow-sm">
+       <div class="font-bebas text-xs text-[var(--c-red)] mb-1">
+       САПАТ
+       </div>
+       <div class="font-display text-base md:text-lg">
+        Эң мыкты кездемелер
+       </div>
+      </div>
+      <div class="bg-[var(--c-cream)] rounded-lg p-4 shadow-sm">
+       <div class="font-bebas text-xs text-[var(--c-red)] mb-1">
+        ДИЗАЙН
+       </div>
+       <div class="font-display text-base md:text-lg">
+        Автордук
+       </div>
+      </div>
+      <div class="bg-[var(--c-cream)] rounded-lg p-4 shadow-sm">
+       <div class="font-bebas text-xs text-[var(--c-red)] mb-1">
+        ПОШИВ
+       </div>
+       <div class="font-display text-base md:text-lg">
+        Бишкек
+       </div>
+      </div>
+      <div class="bg-[var(--c-cream)] rounded-lg p-4 shadow-sm">
+       <div class="font-bebas text-xs text-[var(--c-red)] mb-1">
+        КЕПИЛДИК
+       </div>
+       <div class="font-display text-base md:text-lg">
+        60 күн
+       </div>
+      </div>
+     </div>
+    </div>
+    <div class="relative">
+     <div class="aspect-[4/5] rounded-lg overflow-hidden bg-[var(--c-olive)] shadow-lg">
+      <img src="f1.jpg" alt="Фото бренда" loading="lazy" class="w-full h-full object-cover" onerror="this.style.background='#5a7c3e';">
+     </div>
+     <div class="absolute -bottom-4 -left-4 bg-[var(--c-red)] text-white rounded-lg p-4 font-display shadow-xl hidden md:block">
+      <div class="text-2xl">
+       6 ЖЫЛДЫК
+      </div>
+      <div class="font-bebas text-xs">
+       СТАЖ
+      </div>
+     </div>
+    </div>
+   </div>
+  </section><!-- GALLERY -->
+  <section class="bg-[var(--c-ink)] text-[var(--c-cream)] border-y-[1px] border-black/10 py-16">
+   <div class="max-w-[1400px] mx-auto px-4 md:px-8">
+    <div class="flex items-end justify-between mb-10 flex-wrap gap-4">
+     <div>
+      <div class="font-bebas text-[var(--c-red)] text-xs md:text-sm mb-2">
+       ОБРАЗДАР / ГАЛЕРЕЯ
+      </div>
+      <h2 class="font-display text-3xl md:text-5xl">BRANDMIX МОДЕЛДЕРИ</h2>
+     </div>
+     <div class="font-bebas text-[var(--c-cream)]/60 text-sm">
+      @vyshka.kg
+     </div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
+     <div class="aspect-[3/4] overflow-hidden rounded-lg">
+      <img src="f2.jpg" alt="Модель 1" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.background='#5a7c3e';">
+     </div>
+     <div class="aspect-[3/4] overflow-hidden rounded-lg md:translate-y-6">
+      <img src="f6.jpg" alt="Модель 2" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.background='#d84545';">
+     </div>
+     <div class="aspect-[3/4] overflow-hidden rounded-lg">
+      <img src="f3.jpg" alt="Модель 3" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.background='#5a7c3e';">
+     </div>
+     <div class="aspect-[3/4] overflow-hidden rounded-lg md:translate-y-6">
+      <img src="f7.jpg" alt="Модель 4" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.background='#2a2a2a';">
+     </div>
+     <div class="aspect-[3/4] overflow-hidden rounded-lg">
+      <img src="f4.jpg" alt="Модель 5" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.background='#d84545';">
+     </div>
+     <div class="aspect-[3/4] overflow-hidden rounded-lg md:translate-y-6">
+      <img src="f8.jpg" alt="Модель 6" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.background='#5a7c3e';">
+     </div>
+     <div class="aspect-[3/4] overflow-hidden rounded-lg">
+      <img src="f5.jpg" alt="Модель 7" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.background='#2a2a2a';">
+     </div>
+     <div class="aspect-[3/4] overflow-hidden rounded-lg md:translate-y-6">
+      <img src="f9.jpg" alt="Модель 8" loading="lazy" class="gallery-img w-full h-full object-cover" onerror="this.style.background='#d84545';">
+     </div>
+    </div>
+   </div>
+  </section><!-- FEATURES -->
+  <section class="max-w-[1400px] mx-auto px-4 md:px-8 py-16">
+   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+    <div class="bg-[var(--c-olive)] text-[var(--c-cream)] rounded-lg p-6 shadow-lg">
+     <i data-lucide="truck" class="w-8 h-8 mb-3"></i>
+     <div class="font-display text-lg mb-1">
+      ЖЕТКИРҮҮ
+     </div>
+     <div class="text-sm leading-relaxed">
+      Шаар ичи 20-50 мүнөт, регионго 1-2 күн
+     </div>
+    </div>
+    <div class="bg-[var(--c-red)] text-white rounded-lg p-6 shadow-lg">
+     <i data-lucide="shield-check" class="w-8 h-8 mb-3"></i>
+     <div class="font-display text-lg mb-1">
+      КЕПИЛДИК
+     </div>
+     <div class="text-sm leading-relaxed">
+      Кайтаруу 10 күн ичинде
+     </div>
+    </div>
+    <div class="bg-[var(--c-cream)] rounded-lg p-6 shadow-lg">
+     <i data-lucide="credit-card" class="w-8 h-8 mb-3"></i>
+     <div class="font-display text-lg mb-1">
+      ТӨЛӨМ
+     </div>
+     <div class="text-sm leading-relaxed">
+      Накталай / Карта / Электрондук капчыктар
+     </div>
+    </div>
+    <div class="bg-[var(--c-ink)] text-[var(--c-cream)] rounded-lg p-6 shadow-lg">
+     <i data-lucide="headphones" class="w-8 h-8 mb-3"></i>
+     <div class="font-display text-lg mb-1">
+      КОЛДОО КЫЗМАТЫ
+     </div>
+     <div class="text-sm leading-relaxed">
+      жумасына 7 күн, 24/7
+     </div>
+    </div>
+   </div>
+  </section><!-- MAP / CONTACT LOCATION -->
+  <section id="map" class="max-w-[1400px] mx-auto px-4 md:px-8 py-16">
+   <div class="grid md:grid-cols-[1fr_1.2fr] gap-8 items-stretch">
+    <div class="bg-white rounded-xl p-6 md:p-8 shadow-md border-1 border-black/5">
+     <div class="font-bebas text-[var(--c-red)] text-xs md:text-sm mb-3">
+      ДҮКӨНДҮН ДАРЕГИ
+     </div>
+     <h2 class="font-display text-3xl md:text-5xl leading-[0.95] mb-5">КАРТАДАН ТАБУУ</h2>
+     <p class="text-[var(--c-ink)]/75 text-sm md:text-base leading-relaxed mb-5">
+      BRANDMIX дүкөнүнө келүү үчүн төмөнкү картадан жайгашкан жерди көрүңүз. Баскычты басканда Google Maps жаңы терезеде ачылат.
+     </p>
+     <div class="space-y-3 text-sm mb-6">
+      <div class="flex items-start gap-2"><i data-lucide="map-pin" class="w-5 h-5 text-[var(--c-red)] shrink-0"></i><span>Ш. Манас, көч. Түмөнбай Байзак 55а</span></div>
+      <div class="flex items-start gap-2"><i data-lucide="clock" class="w-5 h-5 text-[var(--c-red)] shrink-0"></i><span>Дүйшөмбү-Жекшемби: 10:00 — 19:00</span></div>
+      <div class="flex items-start gap-2"><i data-lucide="phone" class="w-5 h-5 text-[var(--c-red)] shrink-0"></i><span>+996 700 123 456</span></div>
+     </div>
+     <a href="https://www.google.com/maps/search/?api=1&query=%D0%9C%D0%B0%D0%BD%D0%B0%D1%81%2C%20%D0%A2%D2%AF%D0%BC%D3%A9%D0%BD%D0%B1%D0%B0%D0%B9%20%D0%91%D0%B0%D0%B9%D0%B7%D0%B0%D0%BA%2055%D0%B0" target="_blank" rel="noopener noreferrer" class="inline-flex brutal-btn bg-[var(--c-red)] text-white font-display px-6 py-3 shadow-lg">
+      GOOGLE MAPS АЧУУ
+     </a>
+    </div>
+    <div class="rounded-xl overflow-hidden shadow-lg bg-white border-1 border-black/5">
+     <iframe class="map-frame" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=%D0%9C%D0%B0%D0%BD%D0%B0%D1%81%2C%20%D0%A2%D2%AF%D0%BC%D3%A9%D0%BD%D0%B1%D0%B0%D0%B9%20%D0%91%D0%B0%D0%B9%D0%B7%D0%B0%D0%BA%2055%D0%B0&output=embed"></iframe>
+    </div>
+   </div>
+  </section><!-- FOOTER -->
+  <footer class="bg-[var(--c-ink)] text-[var(--c-cream)] border-t-[1px] border-black/10">
+   <div class="max-w-[1400px] mx-auto px-4 md:px-8 py-14">
+    <div class="grid md:grid-cols-4 gap-8 mb-12">
+     <div>
+      <div class="flex items-center gap-2 mb-4">
+       <div class="w-11 h-11 bg-[var(--c-red)] text-white flex items-center justify-center font-display text-lg rounded-lg">
+        B
+       </div>
+       <div>
+        <div class="font-display text-xl">
+         BRANDMIX
+        </div>
+        <div class="font-bebas text-xs text-[var(--c-red)]">
+         СПОРТТУК КИЙИМДЕР ДҮКӨНҮ
+        </div>
+       </div>
+      </div>
+      <p class="text-[var(--c-cream)]/70 text-sm leading-relaxed">Манас шаарындагы спортук кийимдер дүкөнү</p>
+     </div>
+     <div>
+      <div class="font-display text-lg mb-4">
+       ДҮКӨН
+      </div>
+      <ul class="space-y-2 text-sm">
+       <li><a href="#catalog" class="hover:text-[var(--c-red)] transition-colors">Бардык каталог</a></li>
+       <li><a href="#" data-foot-cat="women" class="hover:text-[var(--c-red)] transition-colors">Аялдар үчүн кийимдер</a></li>
+       <li><a href="#" data-foot-cat="men" class="hover:text-[var(--c-red)] transition-colors">Эркектер үчүн кийимдер</a></li>
+       <li><a href="#" data-foot-cat="access" class="hover:text-[var(--c-red)] transition-colors">Аксессуарлар</a></li>
+      </ul>
+     </div>
+     <div>
+      <div class="font-display text-lg mb-4">
+       БАЙЛАНЫШ МААЛЫМАТТАРЫ
+      </div>
+      <ul class="space-y-3 text-sm">
+       <li class="flex items-start gap-2"><i data-lucide="map-pin" class="w-4 h-4 mt-0.5 text-[var(--c-red)] shrink-0"></i> <span id="contactAddr">Ш. Манас, көч. Түмөнбай Байзак 55а, 10:00-19:00»</span></li>
+       <li class="flex items-start gap-2"><i data-lucide="phone" class="w-4 h-4 mt-0.5 text-[var(--c-red)] shrink-0"></i> <a id="contactPhone" href="tel:+996700123456" class="hover:text-[var(--c-red)] transition-colors">+996 700 123 456</a></li>
+       <li class="flex items-start gap-2"><i data-lucide="mail" class="w-4 h-4 mt-0.5 text-[var(--c-red)] shrink-0"></i> <a id="contactEmail" href="mailto:hello@vyshka.kg" class="hover:text-[var(--c-red)] transition-colors">hello@vyshka.kg</a></li>
+       <li class="flex items-start gap-2"><i data-lucide="clock" class="w-4 h-4 mt-0.5 text-[var(--c-red)] shrink-0"></i> <span>Дүйшөмбү-Жекшемби: 10:00 — 19:00</span></li>
+      </ul>
+     </div>
+     <div>
+      <div class="font-display text-lg mb-4">
+       БИЗ СОЦ ТАРМАКТА
+      </div>
+      <div class="flex gap-2 flex-wrap mb-5">
+       <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-10 h-10 border-1 border-[var(--c-cream)]/30 rounded-lg flex items-center justify-center hover:bg-[var(--c-red)] hover:border-[var(--c-red)] transition-all"><i data-lucide="instagram" class="w-4 h-4"></i></a> <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-10 h-10 border-1 border-[var(--c-cream)]/30 rounded-lg flex items-center justify-center hover:bg-[var(--c-red)] hover:border-[var(--c-red)] transition-all"><i data-lucide="facebook" class="w-4 h-4"></i></a> <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" aria-label="Youtube" class="w-10 h-10 border-1 border-[var(--c-cream)]/30 rounded-lg flex items-center justify-center hover:bg-[var(--c-red)] hover:border-[var(--c-red)] transition-all"><i data-lucide="youtube" class="w-4 h-4"></i></a> <a href="https://t.me" target="_blank" rel="noopener noreferrer" aria-label="Telegram" class="w-10 h-10 border-1 border-[var(--c-cream)]/30 rounded-lg flex items-center justify-center hover:bg-[var(--c-red)] hover:border-[var(--c-red)] transition-all"><i data-lucide="send" class="w-4 h-4"></i></a> <a href="https://wa.me" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="w-10 h-10 border-1 border-[var(--c-cream)]/30 rounded-lg flex items-center justify-center hover:bg-[var(--c-red)] hover:border-[var(--c-red)] transition-all"><i data-lucide="message-circle" class="w-4 h-4"></i></a> <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="w-10 h-10 border-1 border-[var(--c-cream)]/30 rounded-lg flex items-center justify-center hover:bg-[var(--c-red)] hover:border-[var(--c-red)] transition-all"><i data-lucide="music-2" class="w-4 h-4"></i></a>
+      </div>
+      <div class="font-bebas text-sm text-[var(--c-red)] mb-3">
+       ЖАҢЫЛЫКТАРГА КАТТАЛЫҢЫЗ
+      </div>
+      <form id="subForm" class="flex gap-0">
+       <input type="email" required placeholder="your@email.com" class="flex-1 bg-[var(--c-cream)] text-[var(--c-ink)] px-3 py-2 text-sm rounded-l-lg"> <button type="submit" class="bg-[var(--c-red)] text-white px-4 font-bebas rounded-r-lg hover:bg-[var(--c-red-dark)] transition-colors">OK</button>
+      </form>
+     </div>
+    </div>
+    <div class="border-t-1 border-[var(--c-cream)]/10 pt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs md:text-sm text-[var(--c-cream)]/60">
+     <div>
+      © 2026 BRANDMIX СПОРТТУК КИЙИМДЕР ДҮКӨНҮ. Бардык укуктар корголгон. Манас.
+     </div>
+     <div class="font-bebas">
+      DESIGNED IN MANAS 🇰🇬
+     </div>
+    </div>
+   </div>
+  </footer><!-- PRODUCT MODAL -->
+  <div id="productModal" class="fixed inset-0 bg-black/50 z-50 hidden p-4 overflow-auto">
+   <div id="productModalBody" class="max-w-4xl mx-auto my-8 bg-white rounded-xl border-none shadow-2xl slide-in"></div>
+  </div><!-- CART DRAWER -->
+  <div id="cartBackdrop" class="fixed inset-0 bg-black/40 z-40 hidden"></div>
+  <aside id="cartDrawer" class="cart-slide fixed top-0 right-0 w-full max-w-md h-full bg-[var(--c-bg)] border-l-[1px] border-black/10 z-50 flex flex-col">
+   <div class="flex items-center justify-between p-5 border-b-1 border-black/10 bg-[var(--c-ink)] text-[var(--c-cream)]">
+    <div class="font-display text-2xl">
+     СЕБЕТ
+    </div><button id="cartClose" aria-label="Закрыть" class="w-10 h-10 rounded-lg hover:bg-[var(--c-red)] flex items-center justify-center transition-colors"> <i data-lucide="x" class="w-5 h-5"></i> </button>
+   </div>
+   <div id="cartItems" class="flex-1 overflow-auto p-4"></div>
+   <div id="cartFooter" class="border-t-1 border-black/10 p-5 bg-white hidden">
+    <div class="flex items-center justify-between mb-4">
+     <span class="font-bebas text-base">ЖАЛПЫ СУММА:</span> <span id="cartTotal" class="font-display text-2xl">0 сом</span>
+    </div>
+    <div class="flex gap-3 items-center mb-4 bg-[var(--c-cream)] rounded-xl p-3 border-1 border-black/5">
+     <img src="payment-qr.png" alt="BRANDMIX төлөм QR-коду" class="payment-qr-img shrink-0">
+     <div class="text-sm leading-relaxed">
+      <div class="font-display text-base mb-1">QR МЕНЕН ТӨЛӨӨ</div>
+      <div class="text-[var(--c-ink)]/65">Камера же банк тиркемеси менен сканерлеп, төлөм комментарийине буйрутмаңызды жазыңыз.</div>
+     </div>
+    </div>
+    <button id="checkoutBtn" class="w-full brutal-btn bg-[var(--c-red)] text-white font-display text-base py-3 shadow-lg"> БУЙРУТМА БЕРҮҮ </button> <button id="clearCart" class="w-full mt-2 font-bebas text-xs text-[var(--c-ink)]/60 hover:text-[var(--c-red)] py-2 transition-colors">Себетти өчүрүү</button>
+   </div>
+  </aside><!-- TOAST -->
+  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[60] hidden">
+   <div class="bg-[var(--c-ink)] text-[var(--c-cream)] rounded-lg px-5 py-3 font-bebas text-base shadow-xl"></div>
+  </div>
+  <script>
+/* ============ DATA ============ */
+const PRODUCTS = [
+  // WOMEN
+  { id:'w-ts-1', cat:'women', type:'set', name:'Костюм Li-Ning: Жилет + Олимпийка', price:1490, img:'s12.jpg', desc:'салкын аба ырайы үчүн идеалдуу катмар чечим. Жеңил төшөлгөн жилет шамалдан ишенимдүү коргоону камсыз кылат, ал эми жумшак, жоон токулган свит көйнөк сизди жылуу жана жайлуу кармап турат.', sizes:['XS','S','M','L','XL'], stock:true, tag:'NEW' },
+  { id:'w-ts-2', cat:'women', type:'hoodie', name:'Li-Ning Premium Cotton капюшону', price:1190, img:'s13.jpg', desc:'Бир топтомдо комфорттун жана модалуу стилдин үлгүсү. Капюдди жана чуркоочу калың, жогорку сапаттагы жүндөн жасалган, ал териге укмуштуудай ыңгайлуу сезет.', sizes:['XS','S','M','L'], stock:true },
+  { id:'w-tr-1', cat:'women', type:'track', name:'Li-Ning спорттук костюму', price:2890, img:'s14.jpg', desc:'Чуркоо жана фитнес үчүн жогорку технологиялуу куртка. Чоюлгуч материалдан жасалган, денени кучактап, жеңил булчуңдарды колдоону жана толук кыймыл эркиндигин камсыз кылат.', sizes:['S','M','L','XL'], stock:true },
+  { id:'w-tr-2', cat:'women', type:'tshirt', name:'Li-Ning Cropped Tee футболкасы', price:3190, img:'s15.jpg', desc:'Спорттук функционалдуулук менен көчө кийимин айкалыштырган модалуу стил. Бул футболка модалуу, кенен жаратуу (бокстуу) жана белдин сызыгын баса белгилеген кесилген узундукка ээ.', sizes:['S','M','L'], stock:false },
+  { id:'w-set-1', cat:'women', type:'sweat', name:'ANTA "All Things Are Endearing" жемпири', price:5490, img:'s16.jpg', desc:'Жумшактыктын жана жайлуулуктун бир бөлүгү болгон бул сүттүү свит көйнөк сиздин күнүмдүк көрүнүшүңүз үчүн эң сонун негиз болот.', sizes:['XS','S','M','L'], stock:true, tag:'HIT' },
+  { id:'w-set-2', cat:'women', type:'pants', name:'ANTA MASTER THE MOVE шымы', price:4990, img:'s17.jpg', desc:'Стильдүү жана укмуштуудай жайлуу чуркоочулар. Бул шымдар динамизмди кошуп, силуэтти визуалдык түрдө узартуучу ийри кооздук тигиштери менен уникалдуу кесилген.', sizes:['S','M','L','XL'], stock:true },
+  { id:'w-pt-1', cat:'women', type:'set', name:'Li-Ning:Бомбер + карго шымы', price:3790, img:'s18.jpg', desc:'Модалуу жынсы ансамбли гардеробдун негизги бөлүгү болуп калат. Кесилген жеңи жана кең буттуу жүк шымы бар кесилген бомбардир куртка заманбап көчө кийиминин тенденцияларынан шыктанган заманбап силуэтти түзөт.', sizes:['S','M','L','XL'], stock:true },
+  { id:'w-hd-1', cat:'women', type:'tshirt', name:'ERKE Training футболкасы', price:3490, img:'s19.jpg', desc:'Машыгуу учурунда максималдуу ыңгайлуулук үчүн иштелип чыккан жеңил, функционалдуу футболка. Жогорку технологиялуу микроперфорацияланган материал сонун желдетүүнү камсыздап, нымдуулукту денеден заматта соруп алат.', sizes:['XS','S','M','L','XL'], stock:true },
+  { id:'w-sw-1', cat:'women', type:'track', name:'ERKE Happiness спортук костюму', price:2990, img:'s20.jpg', desc:'Активдүү аялдар үчүн жеңил жана жарашыктуу куртка. Анын ачык ак түсү жана жөнөкөй дизайны аны ар кандай спорттук же күнүмдүк кийим менен оңой айкалыштырат.', sizes:['S','M','L'], stock:true, tag:'SALE' },
+
+  // MEN
+  { id:'m-ts-1', cat:'men', type:'set', name:'ANTA брендинин костюму', price:1690, img:'s1.jpg', desc:'Натыйжалуу машыгуулар үчүн даяр кийимдер топтому. Костюм ошол эле стилде жасалган техникалык футболка жана жеңил шортыдан турат. Атайын кездеме курамы нымдуулукту эффективдүү чыгарып, абанын туруктуу айлануусун камсыз кылат.', sizes:['S','M','L','XL','XXL'], stock:true, tag:'HIT' },
+  { id:'m-ts-2', cat:'men', type:'pants', name:'ERKE брендинен шым', price:1390, img:'s2.jpeg', desc:'Жайлуулукту жана практикалыкты баалагандар үчүн негизги стиль. Бул шым денеге ыңгайлуу жана дем алуучу жумшак, тыгыз трикотаж кездемеден тигилген.', sizes:['M','L','XL','XXL'], stock:true },
+  { id:'m-tr-1', cat:'men', type:'track', name:'Спорттук костюм Casual стилинде', price:2790, img:'s 3.jpg', desc:'Сезон тышында шаарда жана сыртта иштөө үчүн практикалык үлгү. Чыктуу, сууну өткөрбөйт материалдан жасалган, шамалдан жана жеңил жамгырдан ишенимдүү коргойт.', sizes:['M','L','XL','XXL'], stock:true },
+  { id:'m-tr-2', cat:'men', type:'pants', name:'ERKE Lifestyle шымы', price:3290, img:'s4.jpg', desc:'Шаардын гардеробуна эң сонун шайкеш келген заманбап спорттук шым. Алардын жарашыктуу кара боз түсү аларды кадимки карага мыкты альтернатива кылат.', sizes:['S','M','L','XL'], stock:false },
+  { id:'m-set-1', cat:'men', type:'track', name:'ANTA брендинен спорттук костюм', price:5790, img:'s5.jpg', desc:'Машыгуу жана күнүмдүк кийүү үчүн функционалдык модель. Калың, жумшак трикотаждан жасалган, анын формасын сактап, температураны ыңгайлуу жөнгө салууну камсыз кылат.', sizes:['M','L','XL'], stock:true, tag:'NEW' },
+  { id:'m-set-2', cat:'men', type:'set', name:'Xtep костюму', price:5290, img:'s6.jpg', desc:'Ар бир элементте максималдуу функция. Бул эки бөлүктөн турган костюм интенсивдүү машыгуу, CrossFit жана чуркоо үчүн иштелип чыккан.', sizes:['S','M','L','XL','XXL'], stock:true },
+  { id:'m-pt-1', cat:'men', type:'tshirt', name:'ERKE Sport Lifestyle футболкасы', price:3890, img:'s7.jpg', desc:'Машыгууга жана күнүмдүк кийүүгө бирдей ылайыктуу жеңил жана ыңгайлуу футболка. Жумшак, дем алуучу материал мыкты вентиляцияны камсыздайт, ал тургай, күчтүү машыгуу учурунда да териңиздин дем алышына мүмкүндүк берет.', sizes:['M','L','XL','XXL'], stock:true },
+  { id:'m-pt-2', cat:'men', type:'sweat', name:'ERKE брендинин жемпири', price:4190, img:'s8.jpg', desc:'Спорттук стили менен негизги модели. Жумшак материал жана идеалдуу ылайыктуулугу салкын аба ырайында ыңгайлуулукту камсыз кылат.', sizes:['M','L','XL'], stock:true },
+  { id:'m-hd-1', cat:'men', type:'hoodie', name:'Li-Ning Essentials капюшону', price:3990, img:'s9.jpg', desc:'Комфорттун жана заманбап көчө стилинин эң сонун айкалышы. Бул капюшон жумшак, премиум сапаттагы трикотаж кездемеден жасалган, ал формасын эң сонун кармап турат жана салкын аба ырайында жылуу кармайт.', sizes:['S','M','L','XL','XXL'], stock:true, tag:'HIT' },
+  { id:'m-hd-2', cat:'men', type:'tshirt', name:'Li-Ning "Anything is Possible" футболкасы', price:4290, img:'s10.jpg', desc:'Дүйнөлүк спорт брендинин жандуу, сапаттуу футболкасы. Премиум пахтадан жасалган, ал күнү бою жумшак жана ыңгайлуу сезет.', sizes:['M','L','XL'], stock:true },
+  { id:'m-sw-1', cat:'men', type:'sweat', name:'Li-Ning Way of Wade жемпири', price:3290, img:'s11.jpg', desc:'Легендарлуу Дуэйн Уэйдден шыктаныңыз! "Way of Wade" премиум линиясындагы бул футболка баскетбол эстетикасын заманбап көчө стили менен айкалыштырат.', sizes:['S','M','L','XL','XXL'], stock:true },
+
+  
+  // ACCESSORIES
+  { id:'a-1', cat:'access', type:'access', name:'BOXING Training сумкасы', price:990, img:'a1.webp', desc:'Ишенимдүү жана кенен цилиндр түрүндөгү баштык бокска олуттуу мамиле кылгандар үчүн иштелип чыккан.', sizes:['OS'], stock:true, tag:'NEW' },
+  { id:'a-2', cat:'access', type:'access', name:'Сумка Arctic Hunter XB00081', price:690, img:'a2.jpg', desc:'Динамикалык шаардык жашоо үчүн идеалдуу чечим.', sizes:['OS'], stock:true },
+  { id:'a-3', cat:'access', type:'access', name:'Бөтөлкө GO FIT ', price:890, img:'a3.webp', desc:'Жолдо жүргөндөр үчүн арналган ар тараптуу бөтөлкө.', sizes:['OS'], stock:true },
+  { id:'a-4', cat:'access', type:'access', name:'Спорттук бандана', price:3490, img:'a4.avif', desc:'Эң катуу машыгуу учурунда ыңгайлуулукту камсыздай турган универсалдуу аксессуар.', sizes:['OS'], stock:true, tag:'HIT' },
+  { id:'a-5', cat:'access', type:'access', name:'Корсет', price:2990, img:'a5.jpg', desc:'Аркаңызга ишеним жана ден соолукту калыбына келтириңиз! Бул корректор көкүрөк омурткасына болгон басымды эффективдүү бошотот жана эңкейүүнү оңдоого жардам берет.', sizes:['OS'], stock:true },
+  { id:'a-6', cat:'access', type:'access', name:'Спорт үчүн биргелешкен коргоо', price:490, img:'a6.webp', desc:'Кортто коопсуздукту жана ыңгайлуулукту баалагандар үчүн керектүү жабдуулар.', sizes:['OS'], stock:false },
+];
+
+const CAT_NAMES = { women:'АЯЛДАР ҮЧҮН', men:'ЭРКЕКТЕР ҮЧҮН', access:'АКСЕССУАРЛАР' };
+const TYPE_NAMES = { tshirt:'Футболка', track:'Спорттук костюм', set:'Двойкалар', pants:'Шым', hoodie:'Капюшон', sweat:'Жемпир', access:'Аксессуар' };
+
+const NAV_STRUCTURE = [
+  { cat:'women', label:'АЯЛДАР ҮЧҮН', types:['tshirt','track','set','pants','hoodie','sweat'] },
+  { cat:'men', label:'ЭРКЕКТЕР ҮЧҮН', types:['tshirt','track','set','pants','hoodie','sweat'] },
+  { cat:'access', label:'АКСЕССУАРЛАР', types:['access'] }
+];
+
+/* ============ STATE ============ */
+const state = {
+  filters: { cat:'all', type:'all', size:'all', inStockOnly:false, search:'', sort:'default' },
+  cart: [],
+};
+
+/* ============ ELEMENT SDK ============ */
+const defaultConfig = {
+  store_name: 'BRANDMIX',
+  store_tagline: 'СПОРТТУК КИЙИМДЕР ДҮКӨНҮ',
+  banner_title: 'Сапаттуу кийинип  ийгиликтүү машык.',
+  banner_subtitle: '',
+  about_title: 'БИЗ ЖӨНЭЛЕ СТИЛЬ ЭМЕСПИЗ, БИЗ СЕНИН ЖАШОО ОБРАЗЫҢБЫЗ',
+  about_text: 'BRANDMIX-Манас шаарынан чыккан спорттук кийимдер дүкөнү. Биз күнүмдүк машыгууларга жана шаардын активдүү жашоосуна туруштук бере турган сапаттуу кийимдерди сунуштайбыз.»',
+  blog_title: 'СТИЛЬ ЖАНА СПОРТ',
+  reviews_title: 'БИЗ ЖӨНҮНДӨ',
+  contact_phone: '+996 700 123 456',
+  contact_email: 'hello@vyshka.kg',
+  contact_address: 'ш. Манас, көч. Түмөнбай Байзаков 55а, 10:00-19:00',
+  primary_bg: '#faf9f7',
+  secondary_surface: '#f0ede6',
+  text_color: '#2a2a2a',
+  primary_action: '#d84545',
+  secondary_action: '#5a7c3e'
+};
+
+function applyConfig(cfg) {
+  const sn = document.getElementById('storeName');
+  if (sn) sn.textContent = cfg.store_name || defaultConfig.store_name;
+  const st = document.getElementById('storeTagline');
+  if (st) st.textContent = cfg.store_tagline || defaultConfig.store_tagline;
+  const bt = document.getElementById('bannerTitle');
+  if (bt && cfg.banner_title) bt.textContent = cfg.banner_title;
+  const bs = document.getElementById('bannerSubtitle');
+  if (bs) bs.textContent = cfg.banner_subtitle || defaultConfig.banner_subtitle;
+  const at = document.getElementById('aboutTitle');
+  if (at && cfg.about_title) at.textContent = cfg.about_title;
+  const ax = document.getElementById('aboutText');
+  if (ax) ax.textContent = cfg.about_text || defaultConfig.about_text;
+  const bt2 = document.getElementById('blogTitle');
+  if (bt2) bt2.textContent = cfg.blog_title || defaultConfig.blog_title;
+  const rt = document.getElementById('reviewsTitle');
+  if (rt) rt.textContent = cfg.reviews_title || defaultConfig.reviews_title;
+  const cp = document.getElementById('contactPhone');
+  if (cp) { const phone = cfg.contact_phone || defaultConfig.contact_phone; cp.textContent = phone; cp.href = 'tel:' + phone.replace(/\s/g,''); }
+  const ce = document.getElementById('contactEmail');
+  if (ce) { const em = cfg.contact_email || defaultConfig.contact_email; ce.textContent = em; ce.href = 'mailto:' + em; }
+  const ca = document.getElementById('contactAddr');
+  if (ca) ca.textContent = cfg.contact_address || defaultConfig.contact_address;
+
+  document.documentElement.style.setProperty('--c-bg', cfg.primary_bg || defaultConfig.primary_bg);
+  document.documentElement.style.setProperty('--c-cream', cfg.secondary_surface || defaultConfig.secondary_surface);
+  document.documentElement.style.setProperty('--c-ink', cfg.text_color || defaultConfig.text_color);
+  document.documentElement.style.setProperty('--c-red', cfg.primary_action || defaultConfig.primary_action);
+  document.documentElement.style.setProperty('--c-olive', cfg.secondary_action || defaultConfig.secondary_action);
+}
+
+if (window.elementSdk) {
+  window.elementSdk.init({
+    defaultConfig,
+    onConfigChange: async (cfg) => { applyConfig(cfg); },
+    mapToCapabilities: (cfg) => ({
+      recolorables: [
+        { get: () => cfg.primary_bg || defaultConfig.primary_bg, set: v => { cfg.primary_bg = v; window.elementSdk.setConfig({ primary_bg: v }); } },
+        { get: () => cfg.secondary_surface || defaultConfig.secondary_surface, set: v => { cfg.secondary_surface = v; window.elementSdk.setConfig({ secondary_surface: v }); } },
+        { get: () => cfg.text_color || defaultConfig.text_color, set: v => { cfg.text_color = v; window.elementSdk.setConfig({ text_color: v }); } },
+        { get: () => cfg.primary_action || defaultConfig.primary_action, set: v => { cfg.primary_action = v; window.elementSdk.setConfig({ primary_action: v }); } },
+        { get: () => cfg.secondary_action || defaultConfig.secondary_action, set: v => { cfg.secondary_action = v; window.elementSdk.setConfig({ secondary_action: v }); } },
+      ],
+      borderables: [],
+      fontEditable: undefined,
+      fontSizeable: undefined
+    }),
+    mapToEditPanelValues: (cfg) => new Map([
+      ['store_name', cfg.store_name || defaultConfig.store_name],
+      ['store_tagline', cfg.store_tagline || defaultConfig.store_tagline],
+      ['banner_title', cfg.banner_title || defaultConfig.banner_title],
+      ['banner_subtitle', cfg.banner_subtitle || defaultConfig.banner_subtitle],
+      ['about_title', cfg.about_title || defaultConfig.about_title],
+      ['about_text', cfg.about_text || defaultConfig.about_text],
+      ['blog_title', cfg.blog_title || defaultConfig.blog_title],
+      ['reviews_title', cfg.reviews_title || defaultConfig.reviews_title],
+      ['contact_phone', cfg.contact_phone || defaultConfig.contact_phone],
+      ['contact_email', cfg.contact_email || defaultConfig.contact_email],
+      ['contact_address', cfg.contact_address || defaultConfig.contact_address],
+    ])
+  });
+}
+
+/* ============ DATA SDK ============ */
+
+if (!window.dataSdk) {
+  window.dataSdk = {
+    handler: null,
+    async init(handler) {
+      this.handler = handler;
+      const data = JSON.parse(localStorage.getItem('brandmix_cart') || '[]');
+      handler.onDataChanged(data);
+      return { isOk: true };
+    },
+    async create(item) {
+      const data = JSON.parse(localStorage.getItem('brandmix_cart') || '[]');
+      item.__backendId = 'cart_' + Date.now() + '_' + Math.random().toString(16).slice(2);
+      data.push(item);
+      localStorage.setItem('brandmix_cart', JSON.stringify(data));
+      if (this.handler) this.handler.onDataChanged(data);
+      return { isOk: true };
+    },
+    async update(item) {
+      let data = JSON.parse(localStorage.getItem('brandmix_cart') || '[]');
+      data = data.map(x => x.__backendId === item.__backendId ? item : x);
+      localStorage.setItem('brandmix_cart', JSON.stringify(data));
+      if (this.handler) this.handler.onDataChanged(data);
+      return { isOk: true };
+    },
+    async delete(item) {
+      let data = JSON.parse(localStorage.getItem('brandmix_cart') || '[]');
+      data = data.filter(x => x.__backendId !== item.__backendId);
+      localStorage.setItem('brandmix_cart', JSON.stringify(data));
+      if (this.handler) this.handler.onDataChanged(data);
+      return { isOk: true };
+    }
+  };
+}
+const dataHandler = {
+  onDataChanged(data) {
+    state.cart = data || [];
+    renderCart();
+    updateCartBadge();
+  }
+};
+
+async function initData() {
+  if (!window.dataSdk) return;
+  const res = await window.dataSdk.init(dataHandler);
+  if (!res.isOk) console.error('data sdk init failed');
+}
+initData();
+
+/* ============ NAV ============ */
+function buildNav() {
+  const list = document.getElementById('navList');
+  list.innerHTML = NAV_STRUCTURE.map(n => `
+    <li class="nav-item relative" data-cat="${n.cat}">
+      <button class="nav-btn px-5 py-4 font-display text-sm hover:bg-[var(--c-red)] transition-colors flex items-center gap-2 border-r-1 border-white/10">
+        ${n.label}
+        <svg class="nav-arrow w-4 h-4" viewBox="0 0 20 20" fill="currentColor"><path d="M5.5 7.5L10 12l4.5-4.5"/></svg>
+      </button>
+    </li>
+  `).join('') + `
+    <li class="ml-auto hidden md:flex items-center px-5">
+      <span class="font-bebas text-[var(--c-red)] text-xs flex items-center gap-2">
+        <i data-lucide="map-pin" class="w-4 h-4"></i> МАНАС
+      </span>
+    </li>
+  `;
+
+  list.querySelectorAll('.nav-item').forEach(li => {
+    const btn = li.querySelector('.nav-btn');
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const active = li.classList.contains('active');
+      document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+      if (!active) {
+        li.classList.add('active');
+        showDropdown(li.dataset.cat);
+      } else {
+        hideDropdown();
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-item') && !e.target.closest('#dropdownContainer')) {
+      hideDropdown();
+    }
+  });
+}
+
+function showDropdown(cat) {
+  const nav = NAV_STRUCTURE.find(n => n.cat === cat);
+  if (!nav) return;
+  const dc = document.getElementById('dropdownContainer');
+  const content = document.getElementById('dropdownContent');
+
+  const typeCards = nav.types.map(t => {
+    const sample = PRODUCTS.find(p => p.cat === cat && p.type === t) || PRODUCTS.find(p => p.type === t);
+    const count = PRODUCTS.filter(p => p.cat === cat && p.type === t).length;
+    const imgSrc = sample ? sample.img : 'https://images.unsplash.com/photo-1556906781-9a412961c28c?w=400';
+    return `
+      <button data-nav-type="${t}" data-nav-cat="${cat}" class="nav-type-card group text-left rounded-lg overflow-hidden hover:shadow-lg transition-all">
+        <div class="aspect-[4/3] overflow-hidden bg-[var(--c-cream)]">
+          <img src="${imgSrc}" alt="${TYPE_NAMES[t]}" loading="lazy" class="w-full h-full object-cover group-hover:scale-110 transition-transform" onerror="this.style.background='#5a7c3e';">
+        </div>
+        <div class="p-3">
+          <div class="font-display text-sm">${TYPE_NAMES[t].toUpperCase()}</div>
+          <div class="font-bebas text-xs opacity-60">${count} ТОВАРОВ →</div>
+        </div>
+      </button>
+    `;
+  }).join('');
+
+  content.innerHTML = `
+    <div class="flex items-end justify-between mb-6 flex-wrap gap-3">
+      <div>
+        <div class="font-bebas text-[var(--c-red)] text-xs">КАТЕГОРИЯ</div>
+        <div class="font-display text-3xl text-[var(--c-ink)]">${CAT_NAMES[cat]}</div>
+      </div>
+      <button data-nav-all="${cat}" class="brutal-btn bg-[var(--c-red)] text-white font-display text-sm px-5 py-2 shadow-md">БААРЫН КӨРҮҮ →</button>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 text-[var(--c-ink)]">
+      ${typeCards}
+    </div>
+  `;
+  dc.classList.remove('hidden');
+
+  content.querySelectorAll('[data-nav-type]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.filters.cat = b.dataset.navCat;
+      state.filters.type = b.dataset.navType;
+      state.filters.size = 'all';
+      syncFilterUI();
+      applyFilters();
+      hideDropdown();
+      scrollToCatalog();
+    });
+  });
+  content.querySelectorAll('[data-nav-all]').forEach(b => {
+    b.addEventListener('click', () => {
+      state.filters.cat = b.dataset.navAll;
+      state.filters.type = 'all';
+      state.filters.size = 'all';
+      syncFilterUI();
+      applyFilters();
+      hideDropdown();
+      scrollToCatalog();
+    });
+  });
+
+  if (window.lucide) lucide.createIcons();
+}
+
+function hideDropdown() {
+  document.querySelectorAll('.nav-item').forEach(x => x.classList.remove('active'));
+  document.getElementById('dropdownContainer').classList.add('hidden');
+}
+
+/* ============ FILTERS / RENDER ============ */
+function scrollToCatalog() {
+  document.getElementById('catalog').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function syncFilterUI() {
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.toggle('active', c.dataset.filterCat === state.filters.cat));
+  document.querySelectorAll('.type-chip').forEach(c => c.classList.toggle('active', c.dataset.filterType === state.filters.type));
+  document.querySelectorAll('.size-chip').forEach(c => c.classList.toggle('active', c.dataset.filterSize === state.filters.size));
+  document.getElementById('stockFilter').checked = state.filters.inStockOnly;
+  document.getElementById('sortSelect').value = state.filters.sort;
+
+  const title = document.getElementById('catalogTitle');
+  if (state.filters.cat === 'all' && state.filters.type === 'all') title.textContent = 'БАРДЫК ТОВАРЛАР';
+  else if (state.filters.type !== 'all' && state.filters.cat !== 'all') title.textContent = `${CAT_NAMES[state.filters.cat]} · ${TYPE_NAMES[state.filters.type].toUpperCase()}`;
+  else if (state.filters.cat !== 'all') title.textContent = CAT_NAMES[state.filters.cat];
+  else if (state.filters.type !== 'all') title.textContent = TYPE_NAMES[state.filters.type].toUpperCase();
+}
+
+function getFilteredProducts() {
+  let list = PRODUCTS.slice();
+  const f = state.filters;
+  if (f.cat !== 'all') list = list.filter(p => p.cat === f.cat);
+  if (f.type !== 'all') list = list.filter(p => p.type === f.type);
+  if (f.size !== 'all') list = list.filter(p => p.sizes.includes(f.size));
+  if (f.inStockOnly) list = list.filter(p => p.stock);
+  if (f.search) {
+    const q = f.search.toLowerCase();
+    list = list.filter(p => p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q));
+  }
+  if (f.sort === 'price-asc') list.sort((a,b) => a.price - b.price);
+  else if (f.sort === 'price-desc') list.sort((a,b) => b.price - a.price);
+  else if (f.sort === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
+  return list;
+}
+
+function renderProducts() {
+  const grid = document.getElementById('productGrid');
+  const list = getFilteredProducts();
+  document.getElementById('resultCount').textContent = list.length;
+  document.getElementById('emptyState').classList.toggle('hidden', list.length > 0);
+
+  grid.innerHTML = list.map(p => `
+    <article class="product-card bg-white flex flex-col" data-pid="${p.id}">
+      <div class="relative aspect-[4/5] overflow-hidden bg-[var(--c-cream)]">
+        <img src="${p.img}" alt="${p.name}" loading="lazy" class="w-full h-full object-cover" onerror="this.style.background='#5a7c3e';">
+        ${p.tag ? `<span class="absolute top-3 left-3 badge-new font-bebas text-xs px-2 py-1">${p.tag}</span>` : ''}
+        ${!p.stock ? `<span class="absolute top-3 right-3 bg-[var(--c-ink)] text-white font-bebas text-xs px-2 py-1 rounded-lg">ТҮГӨНҮП КАЛДЫ</span>` : `<span class="absolute top-3 right-3 bg-[var(--c-olive)] text-white font-bebas text-xs px-2 py-1 rounded-lg">САТЫКТА БАР</span>`}
+      </div>
+      <div class="p-4 flex flex-col flex-1">
+        <div class="font-bebas text-xs text-[var(--c-olive)]">${CAT_NAMES[p.cat]} · ${TYPE_NAMES[p.type].toUpperCase()}</div>
+        <h3 class="font-display text-base leading-tight mt-1 mb-2">${p.name}</h3>
+        <div class="flex flex-wrap gap-1 mb-3">
+          ${p.sizes.map(s => `<span class="text-[10px] font-bebas border-1 border-black/10 rounded px-1.5 py-0.5">${s}</span>`).join('')}
+        </div>
+        <div class="flex items-center justify-between mt-auto pt-2">
+          <div class="font-display text-xl">${p.price.toLocaleString('ru-RU')} <span class="text-xs text-[var(--c-olive)]">сом</span></div>
+          <button class="view-btn brutal-btn bg-[var(--c-ink)] text-white font-bebas text-xs px-3 py-2">КЕНЕНРЭЭК</button>
+        </div>
+      </div>
+    </article>
+  `).join('');
+
+  grid.querySelectorAll('.product-card').forEach(card => {
+    card.addEventListener('click', () => openProduct(card.dataset.pid));
+  });
+}
+
+function applyFilters() { renderProducts(); }
+
+/* ============ PRODUCT MODAL ============ */
+let modalSelectedSize = null;
+function openProduct(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
+  modalSelectedSize = p.sizes[0];
+
+  const modal = document.getElementById('productModal');
+  const body = document.getElementById('productModalBody');
+  body.innerHTML = `
+    <div class="grid md:grid-cols-2 gap-0">
+      <div class="aspect-square md:aspect-auto overflow-hidden bg-[var(--c-cream)] relative">
+        <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.style.background='#5a7c3e';">
+        ${p.tag ? `<span class="absolute top-4 left-4 badge-new font-bebas text-sm px-3 py-1">${p.tag}</span>` : ''}
+      </div>
+      <div class="p-6 md:p-8 flex flex-col">
+        <div class="flex items-start justify-between mb-3">
+          <div class="font-bebas text-xs text-[var(--c-red)]">${CAT_NAMES[p.cat]} · ${TYPE_NAMES[p.type].toUpperCase()}</div>
+          <button id="modalClose" aria-label="Закрыть" class="w-9 h-9 rounded-lg bg-[var(--c-cream)] hover:bg-[var(--c-red)] hover:text-white flex items-center justify-center transition-all">
+            <i data-lucide="x" class="w-5 h-5"></i>
+          </button>
+        </div>
+        <h2 class="font-display text-3xl md:text-4xl leading-tight mb-3">${p.name}</h2>
+        <div class="font-display text-4xl mb-1">${p.price.toLocaleString('ru-RU')} <span class="text-base text-[var(--c-olive)]">сом</span></div>
+        <div class="flex items-center gap-2 mb-5">
+          <span class="w-2.5 h-2.5 ${p.stock ? 'bg-[var(--c-olive)]' : 'bg-[var(--c-red)]'} rounded-full"></span>
+          <span class="font-bebas text-sm">${p.stock ? 'САТТЫКТА БАР · ЖӨНӨТҮҮГӨ ДАЯР' : 'УБАКТЫЛУУ ЖОК'}</span>
+        </div>
+        <p class="text-[var(--c-ink)]/80 leading-relaxed mb-5 text-sm">${p.desc}</p>
+
+        <div class="mb-5">
+          <div class="font-bebas text-sm mb-2">ӨЛЧӨМДҮ ТАНДАҢЫЗ</div>
+          <div id="modalSizes" class="flex flex-wrap gap-2">
+            ${p.sizes.map((s,i) => `<button data-size="${s}" class="size-btn ${i===0?'active':''} font-bebas text-sm px-4 py-2 rounded-lg border-1 border-black/10 hover:bg-[var(--c-ink)] hover:text-white transition-all">${s}</button>`).join('')}
+          </div>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 text-xs font-bebas mb-5">
+          <div class="bg-[var(--c-cream)] rounded-lg p-2 text-center"><i data-lucide="truck" class="w-4 h-4 mx-auto mb-1"></i>1-2 кн</div>
+          <div class="bg-[var(--c-cream)] rounded-lg p-2 text-center"><i data-lucide="rotate-ccw" class="w-4 h-4 mx-auto mb-1"></i>60 ДНЕЙ</div>
+          <div class="bg-[var(--c-cream)] rounded-lg p-2 text-center"><i data-lucide="award" class="w-4 h-4 mx-auto mb-1"></i>ОРИГИНАЛ</div>
+        </div>
+
+        <button id="addToCartBtn" ${!p.stock?'disabled':''} class="brutal-btn ${p.stock?'bg-[var(--c-red)] text-white':'bg-gray-300 text-gray-500 cursor-not-allowed'} font-display text-base py-3 shadow-lg mt-auto">
+          ${p.stock ? 'СЕБЕТКЕ ЖӨНӨТҮҮ' : 'УБАКТЫЛУУ ЖОК'}
+        </button>
+      </div>
+    </div>
+  `;
+  modal.classList.remove('hidden');
+  if (window.lucide) lucide.createIcons();
+
+  document.getElementById('modalClose').addEventListener('click', closeProduct);
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeProduct(); });
+  document.querySelectorAll('#modalSizes .size-btn').forEach(b => {
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#modalSizes .size-btn').forEach(x => x.classList.remove('active'));
+      b.classList.add('active');
+      modalSelectedSize = b.dataset.size;
+    });
+  });
+  const addBtn = document.getElementById('addToCartBtn');
+  if (addBtn && p.stock) addBtn.addEventListener('click', () => addToCart(p, addBtn));
+}
+function closeProduct() {
+  document.getElementById('productModal').classList.add('hidden');
+}
+
+/* ============ CART ============ */
+async function addToCart(product, btnEl) {
+  if (!window.dataSdk) { showToast('Себет убактылуу иштебейт'); return; }
+  if (state.cart.length >= 999) { showToast('Кечиресиз, себетке мындан көп товар кошууга мүмкүн эмес'); return; }
+
+  const origText = btnEl.innerHTML;
+  btnEl.disabled = true;
+  btnEl.innerHTML = 'ДОБАВЛЯЕМ...';
+
+  const existing = state.cart.find(i => i.productId === product.id && i.size === modalSelectedSize);
+  let res;
+  if (existing) {
+    res = await window.dataSdk.update({ ...existing, quantity: (existing.quantity||1) + 1 });
+  } else {
+    res = await window.dataSdk.create({
+      productId: product.id,
+      size: modalSelectedSize,
+      quantity: 1,
+      addedAt: new Date().toISOString()
+    });
+  }
+  btnEl.disabled = false;
+  btnEl.innerHTML = origText;
+  if (res.isOk) {
+    showToast(`${product.name} Ийгиликтүү кошулду`);
+    closeProduct();
+    openCart();
+  } else {
+    showToast('Себетке кошууда ката кетти. Кайрадан аракет кылып көрүңүз');
+  }
+}
+
+async function updateQty(item, delta) {
+  if (!window.dataSdk) return;
+  const newQ = (item.quantity || 1) + delta;
+  if (newQ <= 0) {
+    await window.dataSdk.delete(item);
+  } else {
+    await window.dataSdk.update({ ...item, quantity: newQ });
+  }
+}
+
+async function removeItem(item) {
+  if (!window.dataSdk) return;
+  await window.dataSdk.delete(item);
+}
+
+async function clearCart() {
+  if (!window.dataSdk) return;
+  const copy = state.cart.slice();
+  for (const it of copy) {
+    await window.dataSdk.delete(it);
+  }
+}
+
+function renderCart() {
+  const container = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  if (state.cart.length === 0) {
+    container.innerHTML = `
+      <div class="text-center py-16">
+        <i data-lucide="shopping-bag" class="w-16 h-16 mx-auto mb-4 opacity-30"></i>
+        <div class="font-display text-2xl mb-2">СЕБЕТ БОШ</div>
+        <div class="text-sm text-[var(--c-ink)]/60 mb-6">Буйрутманы тариздөө үчүн товарларды кошуңуз</div>
+        <button id="emptyShop" class="brutal-btn bg-[var(--c-ink)] text-white font-display px-5 py-3 shadow-lg">САТЫП АЛУУГА ӨТҮҮ</button>
+      </div>
+    `;
+    footer.classList.add('hidden');
+    if (window.lucide) lucide.createIcons();
+    const es = document.getElementById('emptyShop');
+    if (es) es.addEventListener('click', () => { closeCart(); scrollToCatalog(); });
+    return;
+  }
+  let total = 0;
+  container.innerHTML = state.cart.map((it, idx) => {
+    const p = PRODUCTS.find(x => x.id === it.productId);
+    if (!p) return '';
+    const line = p.price * (it.quantity || 1);
+    total += line;
+    return `
+      <div class="flex gap-3 bg-white rounded-lg p-3 mb-3 shadow-sm" data-cart-idx="${idx}">
+        <div class="w-20 h-20 rounded-lg overflow-hidden bg-[var(--c-cream)] shrink-0">
+          <img src="${p.img}" alt="${p.name}" class="w-full h-full object-cover" onerror="this.style.background='#5a7c3e';">
+        </div>
+        <div class="flex-1 min-w-0">
+          <div class="font-display text-sm leading-tight line-clamp-2">${p.name}</div>
+          <div class="font-bebas text-xs text-[var(--c-olive)] mt-0.5">Размер: ${it.size}</div>
+          <div class="flex items-center justify-between mt-2">
+            <div class="flex items-center gap-1 border-1 border-black/10 rounded-lg">
+              <button class="qty-minus w-7 h-7 hover:bg-[var(--c-red)] hover:text-white transition-colors" data-idx="${idx}">−</button>
+              <span class="w-7 text-center font-display text-sm">${it.quantity || 1}</span>
+              <button class="qty-plus w-7 h-7 hover:bg-[var(--c-red)] hover:text-white transition-colors" data-idx="${idx}">+</button>
+            </div>
+            <div class="font-display text-sm">${line.toLocaleString('ru-RU')} сом</div>
+          </div>
+        </div>
+        <button class="rm-btn w-8 h-8 bg-[var(--c-red)] text-white rounded-lg flex items-center justify-center shrink-0 self-start hover:bg-[var(--c-red-dark)] transition-colors" data-idx="${idx}" aria-label="Удалить">
+          <i data-lucide="trash-2" class="w-4 h-4"></i>
+        </button>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('cartTotal').textContent = total.toLocaleString('ru-RU') + ' сом';
+  footer.classList.remove('hidden');
+
+  container.querySelectorAll('.qty-plus').forEach(b => b.addEventListener('click', () => updateQty(state.cart[+b.dataset.idx], 1)));
+  container.querySelectorAll('.qty-minus').forEach(b => b.addEventListener('click', () => updateQty(state.cart[+b.dataset.idx], -1)));
+  container.querySelectorAll('.rm-btn').forEach(b => b.addEventListener('click', () => removeItem(state.cart[+b.dataset.idx])));
+  if (window.lucide) lucide.createIcons();
+}
+
+function updateCartBadge() {
+  const total = state.cart.reduce((s, i) => s + (i.quantity || 1), 0);
+  const badge = document.getElementById('cartBadge');
+  if (total > 0) { badge.classList.remove('hidden'); badge.textContent = total; }
+  else { badge.classList.add('hidden'); }
+}
+
+function openCart() {
+  document.getElementById('cartDrawer').classList.add('open');
+  document.getElementById('cartBackdrop').classList.remove('hidden');
+}
+function closeCart() {
+  document.getElementById('cartDrawer').classList.remove('open');
+  document.getElementById('cartBackdrop').classList.add('hidden');
+}
+
+/* ============ TOAST ============ */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.querySelector('div').textContent = msg;
+  t.classList.remove('hidden');
+  t.classList.add('toast');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.add('hidden'), 2800);
+}
+
+
+function buildOrderMessage() {
+  if (!state.cart.length) return '';
+  let total = 0;
+  const lines = state.cart.map((it, idx) => {
+    const p = PRODUCTS.find(x => x.id === it.productId);
+    if (!p) return '';
+    const qty = it.quantity || 1;
+    const line = p.price * qty;
+    total += line;
+    return `${idx + 1}. ${p.name} | Размер: ${it.size} | ${qty} x ${p.price} сом = ${line} сом`;
+  }).filter(Boolean);
+  return `Саламатсызбы! BRANDMIX сайтынан буйрутма бергим келет:%0A%0A${encodeURIComponent(lines.join('\n'))}%0A%0AЖалпы сумма: ${total} сом%0AДарек/аты-жөнүмдү тактап берем.`;
+}
+
+function checkoutOrder() {
+  if (!state.cart.length) {
+    showToast('Себет бош');
+    return;
+  }
+  const msg = buildOrderMessage();
+  window.open(`https://wa.me/996700123456?text=${msg}`, '_blank');
+  showToast('Буйрутма WhatsApp аркылуу жөнөтүүгө даяр');
+}
+
+/* ============ EVENTS ============ */
+function bindEvents() {
+  document.querySelectorAll('.cat-chip').forEach(c => c.addEventListener('click', () => {
+    state.filters.cat = c.dataset.filterCat;
+    state.filters.type = 'all';
+    state.filters.size = 'all';
+    syncFilterUI(); applyFilters();
+  }));
+  document.querySelectorAll('.type-chip').forEach(c => c.addEventListener('click', () => {
+    state.filters.type = c.dataset.filterType;
+    syncFilterUI(); applyFilters();
+  }));
+  document.querySelectorAll('.size-chip').forEach(c => c.addEventListener('click', () => {
+    state.filters.size = c.dataset.filterSize;
+    syncFilterUI(); applyFilters();
+  }));
+  document.getElementById('stockFilter').addEventListener('change', e => {
+    state.filters.inStockOnly = e.target.checked; applyFilters();
+  });
+  document.getElementById('sortSelect').addEventListener('change', e => {
+    state.filters.sort = e.target.value; applyFilters();
+  });
+  document.getElementById('resetFilters').addEventListener('click', () => {
+    state.filters = { cat:'all', type:'all', size:'all', inStockOnly:false, search:'', sort:'default' };
+    document.getElementById('desktopSearch').value = '';
+    document.getElementById('mobileSearch').value = '';
+    syncFilterUI(); applyFilters();
+  });
+
+  document.querySelectorAll('.cat-tile').forEach(t => t.addEventListener('click', () => {
+    state.filters.cat = t.dataset.cat;
+    state.filters.type = 'all';
+    state.filters.size = 'all';
+    syncFilterUI(); applyFilters(); scrollToCatalog();
+  }));
+
+  const dSearch = document.getElementById('desktopSearch');
+  const mSearch = document.getElementById('mobileSearch');
+  [dSearch, mSearch].forEach(el => {
+    if (!el) return;
+    el.addEventListener('input', e => { state.filters.search = e.target.value.trim(); applyFilters(); if (state.filters.search) scrollToCatalog(); });
+  });
+  document.getElementById('searchToggle').addEventListener('click', () => {
+    document.getElementById('mobileSearchBar').classList.toggle('open');
+  });
+
+  document.getElementById('cartBtn').addEventListener('click', openCart);
+  document.getElementById('cartClose').addEventListener('click', closeCart);
+  document.getElementById('cartBackdrop').addEventListener('click', closeCart);
+  document.getElementById('clearCart').addEventListener('click', async () => {
+    const b = document.getElementById('clearCart');
+    b.disabled = true; b.textContent = 'Очищаем...';
+    await clearCart();
+    b.disabled = false; b.textContent = 'Очистить корзину';
+  });
+  document.getElementById('checkoutBtn').addEventListener('click', checkoutOrder);
+
+  document.getElementById('shopNowBtn').addEventListener('click', scrollToCatalog);
+  document.getElementById('aboutBtn').addEventListener('click', () => {
+    document.querySelector('#aboutTitle').scrollIntoView({ behavior:'smooth' });
+  });
+
+  document.querySelectorAll('[data-foot-cat]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      state.filters.cat = a.dataset.footCat;
+      state.filters.type = 'all';
+      state.filters.size = 'all';
+      syncFilterUI(); applyFilters(); scrollToCatalog();
+    });
+  });
+
+  document.getElementById('subForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    showToast('Спасибо! Вы подписаны на рассылку');
+    e.target.reset();
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeProduct(); closeCart(); hideDropdown(); }
+  });
+}
+
+/* ============ INIT ============ */
+buildNav();
+bindEvents();
+syncFilterUI();
+renderProducts();
+renderCart();
+applyConfig(defaultConfig);
+if (window.lucide) lucide.createIcons();
+</script></body>
+</html>
